@@ -41,7 +41,7 @@ public class CommentController {
 
         } else {
             commentService.save(comment);
-            return "redirect:/post/" + comment.getPost().getId();
+            return "redirect:post" + comment.getPost().getId();
         }
     }
 
@@ -62,14 +62,14 @@ public class CommentController {
 
                 model.addAttribute("comment", comment);
 
-                return "/commentForm";
+                return "commentForm";
 
             } else {
-                return "/error";
+                return "error";
             }
 
         } else {
-            return "/error";
+            return "error";
         }
     }
 

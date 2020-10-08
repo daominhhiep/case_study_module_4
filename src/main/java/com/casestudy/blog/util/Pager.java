@@ -1,9 +1,7 @@
 package com.casestudy.blog.util;
 
-
 import com.casestudy.blog.model.Post;
 import org.springframework.data.domain.Page;
-
 
 public class Pager {
 

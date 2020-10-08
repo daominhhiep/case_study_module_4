@@ -13,7 +13,6 @@ import java.util.Collection;
 @Data
 @Table(name = "user")
 public class User {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "user_id")
@@ -24,16 +23,16 @@ public class User {
     @NotEmpty(message = "*Please provide an email")
     private String email;
 
+    @Column(name = "username", nullable = false, unique = true)
+    @Length(min = 5, message = "*Your username must have at least 5 characters")
+    @NotEmpty(message = "*Please provide your name")
+    private String username;
+
     @Column(name = "password", nullable = false)
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
     @JsonIgnore
     private String password;
-
-    @Column(name = "username", nullable = false, unique = true)
-    @Length(min = 5, message = "*Your username must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your name")
-    private String username;
 
     @Column(name = "name")
     @NotEmpty(message = "*Please provide your name")

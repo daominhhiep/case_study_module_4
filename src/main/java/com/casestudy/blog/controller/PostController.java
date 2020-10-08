@@ -20,14 +20,11 @@ import java.util.Optional;
 @Controller
 public class PostController {
 
-    private final PostService postService;
-    private final UserService userService;
+    @Autowired
+    private PostService postService;
 
     @Autowired
-    public PostController(PostService postService, UserService userService) {
-        this.postService = postService;
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public String newPost(Principal principal,
@@ -41,10 +38,10 @@ public class PostController {
 
             model.addAttribute("post", post);
 
-            return "/postForm";
+            return "postForm";
 
         } else {
-            return "/error";
+            return "error";
         }
     }
 
@@ -53,10 +50,10 @@ public class PostController {
                                 BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "/postForm";
+            return "postForm";
         } else {
             postService.save(post);
-            return "redirect:/blog/" + post.getUser().getUsername();
+            return "redirect:blog" + post.getUser().getUsername();
         }
     }
 
@@ -72,13 +69,13 @@ public class PostController {
 
             if (isPrincipalOwnerOfPost(principal, post)) {
                 model.addAttribute("post", post);
-                return "/postForm";
+                return "postForm";
             } else {
-                return "/403";
+                return "403";
             }
 
         } else {
-            return "/error";
+            return "error";
         }
     }
 
@@ -97,10 +94,10 @@ public class PostController {
                 model.addAttribute("username", principal.getName());
             }
 
-            return "/post";
+            return "post";
 
         } else {
-            return "/error";
+            return "error";
         }
     }
 
@@ -115,13 +112,13 @@ public class PostController {
 
             if (isPrincipalOwnerOfPost(principal, post)) {
                 postService.delete(post);
-                return "redirect:/home";
+                return "redirect:home";
             } else {
-                return "/403";
+                return "403";
             }
 
         } else {
-            return "/error";
+            return "error";
         }
     }
 

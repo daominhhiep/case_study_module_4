@@ -13,12 +13,12 @@ public class BlogErrorController implements ErrorController {
 
     @RequestMapping(PATH)
     public ModelAndView error() {
-        return new ModelAndView("/error");
+        return new ModelAndView("error");
     }
 
     @GetMapping("/403")
     public ModelAndView error403() {
-        return new ModelAndView("/403");
+        return new ModelAndView("403");
     }
 
     @Override
