@@ -31,7 +31,6 @@ public class User {
     @Column(name = "password", nullable = false)
     @Length(min = 5, message = "*Your password must have at least 5 characters")
     @NotEmpty(message = "*Please provide your password")
-    @JsonIgnore
     private String password;
 
     @Column(name = "name")

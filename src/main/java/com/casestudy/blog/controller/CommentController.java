@@ -54,20 +54,15 @@ public class CommentController {
 
         if (post.isPresent()) {
             Optional<User> user = userService.findByUsername(principal.getName());
-
             if (user.isPresent()) {
                 Comment comment = new Comment();
                 comment.setUser(user.get());
                 comment.setPost(post.get());
-
                 model.addAttribute("comment", comment);
-
                 return "commentForm";
-
             } else {
                 return "error";
             }
-
         } else {
             return "error";
         }
