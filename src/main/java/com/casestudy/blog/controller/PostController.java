@@ -29,17 +29,12 @@ public class PostController {
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public String newPost(Principal principal,
                           Model model) {
-
         Optional<User> user = userService.findByUsername(principal.getName());
-
         if (user.isPresent()) {
             Post post = new Post();
             post.setUser(user.get());
-
             model.addAttribute("post", post);
-
             return "/postForm";
-
         } else {
             return "/error";
         }
@@ -61,19 +56,15 @@ public class PostController {
     public String editPostWithId(@PathVariable Long id,
                                  Principal principal,
                                  Model model) {
-
         Optional<Post> optionalPost = postService.findForId(id);
-
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-
             if (isPrincipalOwnerOfPost(principal, post)) {
                 model.addAttribute("post", post);
                 return "postForm";
             } else {
                 return "403";
             }
-
         } else {
             return "error";
         }
@@ -83,17 +74,13 @@ public class PostController {
     public String getPostWithId(@PathVariable Long id,
                                 Principal principal,
                                 Model model) {
-
         Optional<Post> optionalPost = postService.findForId(id);
-
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-
             model.addAttribute("post", post);
             if (isPrincipalOwnerOfPost(principal, post)) {
                 model.addAttribute("username", principal.getName());
             }
-
             return "post";
 
         } else {
@@ -104,19 +91,15 @@ public class PostController {
     @RequestMapping(value = "/post/{id}", method = RequestMethod.DELETE)
     public String deletePostWithId(@PathVariable Long id,
                                    Principal principal) {
-
         Optional<Post> optionalPost = postService.findForId(id);
-
         if (optionalPost.isPresent()) {
             Post post = optionalPost.get();
-
             if (isPrincipalOwnerOfPost(principal, post)) {
                 postService.delete(post);
                 return "redirect:home";
             } else {
                 return "403";
             }
-
         } else {
             return "error";
         }

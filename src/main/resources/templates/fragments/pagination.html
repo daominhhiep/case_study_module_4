@@ -7,30 +7,34 @@
     <!-- Pagination -->
     <div class="pagination" th:with="baseUrl=${URLparameter}">
         <span th:if="${pager.indexOutOfBounds()}">
-            Page is out of bounds. Go back to <a class="pageLink" th:href="@{${baseUrl}(page=1)}">Home</a>.
+            Page is out of bounds. Go back to <a class="pageLink"
+                                                 th:href="@{${baseUrl}(page=1)}">Home</a>.
         </span>
-
         <span th:unless="${pager.indexOutOfBounds()}">
-
             <span th:if="${pager.hasPrevious()}">
                 <a class="pageLink"
-                   th:href="@{${baseUrl}(page=1)}">&laquo; first</a>
+                   th:href="@{${baseUrl}(page=0)}">&laquo; first</a>
                 <a class="pageLink"
                    th:href="@{${baseUrl}(page=${pager.getPageIndex() - 1})}"> previous</a>
             </span>
-
             <span th:if="${pager.getTotalPages() != 1}"
-                  th:text="'Page ' + ${pager.getPageIndex()} + ' of ' + ${pager.getTotalPages()} + '.'">
+                  th:text="'Page ' + ${pager.getPageIndex()} + ' of ' + ${pager.getTotalPages()-1} + '.'">
             </span>
-
             <span th:if="${pager.hasNext()}">
                 <a class="pageLink"
                    th:href="@{${baseUrl}(page=${pager.getPageIndex() + 1})}">next</a>
                 <a class="pageLink"
-                   th:href="@{${baseUrl}(page=${pager.getTotalPages()})}">last &raquo;</a>
+                   th:href="@{${baseUrl}(page=${pager.getTotalPages() - 1})}">last &raquo;</a>
             </span>
         </span>
     </div>
+
+<!--    <div>-->
+<!--        <a th:href="@{'/home'(page=${pager.getPageIndex() - 1})}" th:if="${pager.hasPrevious()}">Previous</a>-->
+<!--        <span th:text="${pager.getPageIndex() + 1}"></span>/<span th:text="${pager.totalPages}"></span>-->
+<!--        <a th:href="@{'/home'(page=${pager.getPageIndex() + 1})}" th:if="${pager.hasNext()}">Next</a>-->
+<!--        <a class="pageLink" th:href="@{'/home'(page=${pager.getTotalPages() - 1})} " th:if="${pager.hasNext()}">last</a>-->
+<!--    </div>-->
 
 </div>
 </body>

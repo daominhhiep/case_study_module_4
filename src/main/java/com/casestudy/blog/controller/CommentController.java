@@ -21,24 +21,20 @@ import java.util.Optional;
 @Controller
 public class CommentController {
 
-    private final PostService postService;
-    private final UserService userService;
-    private final CommentService commentService;
+    @Autowired
+    private PostService postService;
 
     @Autowired
-    public CommentController(PostService postService, UserService userService, CommentService commentService) {
-        this.postService = postService;
-        this.userService = userService;
-        this.commentService = commentService;
-    }
+    private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @RequestMapping(value = "/createComment", method = RequestMethod.POST)
     public String createNewPost(@Valid Comment comment,
                                 BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return "/commentForm";
-
         } else {
             commentService.save(comment);
             return "redirect:post/" + comment.getPost().getId();

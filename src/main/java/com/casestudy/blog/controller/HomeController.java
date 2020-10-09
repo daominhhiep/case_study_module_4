@@ -17,23 +17,26 @@ import java.util.Optional;
 @Controller
 public class HomeController {
 
-    private final PostService postService;
-
     @Autowired
-    public HomeController(PostService postService) {
-        this.postService = postService;
-    }
+    private PostService postService;
 
     @GetMapping("/home")
     public String home(@RequestParam(defaultValue = "0") Optional<String> s,
-                       @PageableDefault(value = 3) Pageable pageable,
+                       @PageableDefault(value = 5) Pageable pageable,
                        Model model) {
-
         Page<Post> posts = postService.findAllOrderedByDatePageable(pageable);
         Pager pager = new Pager(posts);
-
         model.addAttribute("pager", pager);
+        return "home";
+    }
 
+    @GetMapping("/")
+    public String home2(@RequestParam(defaultValue = "0") Optional<String> s,
+                       @PageableDefault(value = 5) Pageable pageable,
+                       Model model) {
+        Page<Post> posts = postService.findAllOrderedByDatePageable(pageable);
+        Pager pager = new Pager(posts);
+        model.addAttribute("pager", pager);
         return "home";
     }
 }
