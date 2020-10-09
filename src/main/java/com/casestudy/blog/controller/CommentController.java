@@ -31,13 +31,13 @@ public class CommentController {
     private CommentService commentService;
 
     @RequestMapping(value = "/createComment", method = RequestMethod.POST)
-    public String createNewPost(@Valid Comment comment,
-                                BindingResult bindingResult) {
+    public String createNewComment(@Valid Comment comment,
+                                   BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/commentForm";
         } else {
             commentService.save(comment);
-            return "redirect:post/" + comment.getPost().getId();
+            return "redirect:/post/" + comment.getPost().getId();
         }
     }
 
@@ -45,9 +45,7 @@ public class CommentController {
     public String commentPostWithId(@PathVariable Long id,
                                     Principal principal,
                                     Model model) {
-
         Optional<Post> post = postService.findForId(id);
-
         if (post.isPresent()) {
             Optional<User> user = userService.findByUsername(principal.getName());
             if (user.isPresent()) {

@@ -7,6 +7,31 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
+        <script>
+            function like(postID, userID) {
+                console.log('postID ' + postID)
+                console.log('userID ' + userID)
+                let likesObj = document.getElementById("likes" + postID);
+                let json = {
+                    "post": {"id": postID},
+                    "appUser": {"id": userID}
+                }
+                $.ajax({
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    type: "POST",
+                    data: JSON.stringify(json),
+                    url: "/post/like",
+                    success: function (currentPost) {
+                        $(likesObj).html(currentPost.likeCount);
+                    }
+                });
+                event.preventDefault();
+            }
+        </script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     </div>
 </head>
 <body>

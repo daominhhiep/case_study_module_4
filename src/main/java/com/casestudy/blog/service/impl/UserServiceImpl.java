@@ -11,7 +11,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Service
-public class UserServiceImp implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
@@ -30,6 +30,7 @@ public class UserServiceImp implements UserService {
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
 
     @Override
     public User save(User user) {

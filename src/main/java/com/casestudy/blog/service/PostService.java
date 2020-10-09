@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 public interface PostService {
+    Post getPostById(long id);
 
     Optional<Post> findForId(Long id);
 
