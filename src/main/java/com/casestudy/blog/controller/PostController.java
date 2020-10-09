@@ -38,10 +38,10 @@ public class PostController {
 
             model.addAttribute("post", post);
 
-            return "postForm";
+            return "/postForm";
 
         } else {
-            return "error";
+            return "/error";
         }
     }
 
@@ -53,7 +53,7 @@ public class PostController {
             return "postForm";
         } else {
             postService.save(post);
-            return "redirect:blog" + post.getUser().getUsername();
+            return "redirect:blog/" + post.getUser().getUsername();
         }
     }
 

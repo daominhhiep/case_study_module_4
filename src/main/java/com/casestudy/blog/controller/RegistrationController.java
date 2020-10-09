@@ -25,7 +25,7 @@ public class RegistrationController {
     public String registration(Model model) {
 
         model.addAttribute("user", new User());
-        return "/registration";
+        return "registration";
     }
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
@@ -53,6 +53,6 @@ public class RegistrationController {
             model.addAttribute("user", new User());
         }
 
-        return "/registration";
+        return "registration";
     }
 }

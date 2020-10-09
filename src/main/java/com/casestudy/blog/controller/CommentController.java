@@ -41,7 +41,7 @@ public class CommentController {
 
         } else {
             commentService.save(comment);
-            return "redirect:post" + comment.getPost().getId();
+            return "redirect:post/" + comment.getPost().getId();
         }
     }
 
