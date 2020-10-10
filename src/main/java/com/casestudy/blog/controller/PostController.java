@@ -51,7 +51,6 @@ public class PostController {
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
     public String createNewPost(@Valid Post post,
                                 BindingResult bindingResult) {
-
         if (bindingResult.hasErrors()) {
             return "postForm";
         } else {
@@ -117,7 +116,7 @@ public class PostController {
     }
 
 
-    @PostMapping(value = "post/like")
+    @PostMapping(value = "/post/like")
     public ResponseEntity<Post> like(@RequestBody Like like) {
         Post currentPost = postService.getPostById(like.getPost().getId());
         User currentUser = getPrincipal();
