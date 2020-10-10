@@ -1,6 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
 
+    </style>
 </head>
 <body>
 <div th:fragment="posts">
@@ -15,12 +17,33 @@
         </div>
         <h3 class="panel-body" th:text="${post.body}">Body</h3>
 
-<!--        <h3 th:text="${post.likeCount}">li</h3>-->
+        <!--        <h3 th:text="${post.likeCount}">li</h3>-->
         <div class="likesWrapper" sec:authorize="isAuthenticated()">
             <button type="button" th:onclick="'like(\'' + ${post.id} +'\',\''+${user.id} + '\')'">Like</i></button>
         </div>
     </div>
 </div>
+
+<!--<div th:fragment="posts">-->
+<!--    <section class="projects-section bg-white" id="projects">-->
+<!--        <div class="container" th:each="post : ${pager.posts}" th:object="${user}">-->
+<!--            &lt;!&ndash; Featured Project Row&ndash;&gt;-->
+<!--            <div class="row align-items-center no-gutters mb-4 mb-lg-5">-->
+<!--                <div class="col-xl-8 col-lg-7" style="width: 744px">-->
+<!--                    <img class="img-fluid mb-3 mb-lg-0" src="${cus.path}" alt=""/>-->
+<!--                </div>-->
+<!--                <div class="col-xl-4 col-lg-5">-->
+<!--                    <div class="featured-text text-center text-lg-left">-->
+<!--                        <h4>${cus.content}</h4>-->
+<!--                        <p class="text-black-50 mb-0">${cus.date}</p>-->
+<!--                        <h1 class="card-title top" name="${cus.postId}" hidden>${cus.postId}</h1>-->
+<!--                        <a name="delete" href="/posts?action=delete&postId=${cus.postId}">Xóa</a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+<!--</div>-->
 
 
 </body>

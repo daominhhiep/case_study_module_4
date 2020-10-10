@@ -1,71 +1,63 @@
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <div th:fragment="header-css">
-
         <title>Spring Boot Blog</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <script>
-            function like(postID, userID) {
-                console.log('postID ' + postID)
-                console.log('userID ' + userID)
-                let likesObj = document.getElementById("likes" + postID);
-                let json = {
-                    "post": {"id": postID},
-                    "appUser": {"id": userID}
-                }
-                $.ajax({
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    type: "POST",
-                    data: JSON.stringify(json),
-                    url: "/post/like",
-                    success: function (currentPost) {
-                        $(likesObj).html(currentPost.likeCount);
-                    }
-                });
-                event.preventDefault();
-            }
-        </script>
+        <script src="../../static/js/script.js" type="text/javascript" th:src="@{/js/script.js}"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+              rel="stylesheet"/>
+<!--        <link href="../../resources/css/styles.css" rel="stylesheet"/>-->
+<!--        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../../static/css/style.css"/>-->
     </div>
+
 </head>
 <body>
+
+
 <div th:fragment="header">
-    <!-- this is header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container">
-            <div class="navbar-header">
-                <a class="navbar-brand" th:href="@{/home}">Blog App</a>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 70px">
+            <a class="navbar-brand" href="/posts">
+                <img src="../../resources/image/logo.png" width="30" height="30" class="d-inline-block align-top"
+                     alt="">
+                Louis Vuituoi
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/home}">Blog App<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/registration}">Registration</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" th:href="@{/login}">Login</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
+                        <a class="nav-link" th:href="@{/newPost}">New Post</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('USER')">
+                        <a class="nav-link" th:href="@{'/blog/' + ${#authentication.getName()}}">My Blog</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/logout}">Sign Out</a>
+                    </li>
+                </ul>
             </div>
-            <div id="navbar" class="collapse navbar-collapse navbar-right">
-                <!-- show registration only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
-                    <li class="active"><a th:href="@{/registration}">Registration</a></li>
-                </ul>
-                <!-- show login only if user is not yet authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="!isAuthenticated()">
-                    <li class="active"><a th:href="@{/login}">Login</a></li>
-                </ul>
-                <!-- show My Blog only if user is authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="hasRole('USER')">
-                    <li class="active"><a th:href="@{'/blog/' + ${#authentication.getName()}}">My Blog</a></li>
-                </ul>
-                <!-- show new post only if user is authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="hasRole('USER')">
-                    <li class="active"><a th:href="@{/newPost}">New Post</a></li>
-                </ul>
-                <!-- show sign out only if user is authenticated -->
-                <ul class="nav navbar-nav" sec:authorize="isAuthenticated()">
-                    <li class="active"><a th:href="@{/logout}">Sign Out</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 </div>
 
 </body>
