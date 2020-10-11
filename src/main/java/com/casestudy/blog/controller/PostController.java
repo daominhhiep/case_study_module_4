@@ -42,7 +42,7 @@ public class PostController {
             Post post = new Post();
             post.setUser(user.get());
             model.addAttribute("post", post);
-            return "/postForm";
+            return "postForm";
         } else {
             return "/error";
         }
@@ -55,7 +55,7 @@ public class PostController {
             return "postForm";
         } else {
             postService.save(post);
-            return "redirect:/blog/" + post.getUser().getUsername();
+            return "redirect:/home";
         }
     }
 

@@ -90,9 +90,7 @@
     <!-- Sign up -->
     <div class="content-wrapper">
         <div class="card">
-            <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
-        </div>
-        <div class="card">
+            <div class="alert alert-success" th:if="${successMessage}" th:utext="${successMessage}"></div>
             <div class="card-body mx-auto">
                 <!-- Inline form with form-groups -->
                 <form action="#" th:action="@{/registration}" th:object="${user}" method="post"
