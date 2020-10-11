@@ -101,7 +101,7 @@ public class PostController {
         }
     }
 
-    @RequestMapping(value = "/post/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.POST)
     public String deletePostWithId(@PathVariable Long id,
                                    Principal principal) {
 
