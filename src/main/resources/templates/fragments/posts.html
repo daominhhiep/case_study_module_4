@@ -1,22 +1,51 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+    <style>
+
+    </style>
 </head>
 <body>
-<div th:fragment="posts">
 
-    <div class="starter-template panel" th:each="post : ${pager.posts}">
-        <div class="panel-heading">
-            <h1><a th:text="${post.title}" th:href="@{'/post/' + ${post.id}}">Title</a></h1>
-            <div th:text="'Created: ' + ${#dates.format(post.createDate, 'dd-MMM-yyyy')} + ' by '">
-                Created by
-            </div>
-            <div><a th:text="${post.user.username}" th:href="@{'/blog/' + ${post.user.username}}">User</a>
+
+<div th:fragment="posts">
+    <section class="projects-section bg-white" id="projects">
+        <div class="container" th:each="post : ${pager.posts}" th:object="${user}" style="background-color: #f0f0ff">
+            <!-- Featured Project Row-->
+            <div class="row align-items-center no-gutters mb-4 mb-lg-5">
+                <div class="col-xl-8 col-lg-7" style="width: 744px">
+                    <img class="img-fluid mb-3 mb-lg-0" src="" alt=""/>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="featured-text text-center text-lg-left">
+                        <h4><a th:text="${post.title}" th:href="@{'/post/' + ${post.id}}">Title</a></h4>
+                        <div>
+                            <p th:text="'Created: ' + ${#dates.format(post.createDate, 'dd-MMM-yyyy')} + ' by '">
+                                Created by
+                            </p>
+                            <p>Username: <a th:text="${post.user.username}"
+                                            th:href="@{'/blog/' + ${post.user.username}}">User</a>
+                            </p>
+                        </div>
+                        <div class="text-black-50 mb-0">
+                            <p th:text="${post.body}">Body</p>
+                        </div>
+                        <span class="likes" title="Like" th:text="${post.likeCount}"></span>
+                        <div class="likesWrapper" sec:authorize="isAuthenticated()">
+                            <button class="button" th:onclick="'like(\'' + ${post.id} +'\',\''+${user.id} + '\')'">
+                                <div class="emitter"></div>
+                                <div class="hand">
+                                    <div class="thumb"></div>
+                                </div>
+                                <span>Like<span>d</span></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <h3 class="panel-body" th:text="${post.body}">Body</h3>
-        <br></br>
-    </div>
+    </section>
 
 </div>
+
 </body>
 </html>

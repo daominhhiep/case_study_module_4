@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class PostServiceImp implements PostService {
+public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostRepository postRepository;
@@ -43,7 +43,13 @@ public class PostServiceImp implements PostService {
         postRepository.delete(post);
     }
 
+    @Override
+    public Post getPostById(long id) {
+        return postRepository.findById(id).orElse(null);
+    }
+
     private int subtractPageByOne(int page){
         return (page < 1) ? 0 : page - 1;
     }
+
 }

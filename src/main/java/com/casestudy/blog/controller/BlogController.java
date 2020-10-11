@@ -22,34 +22,26 @@ import java.util.Optional;
 @Controller
 public class BlogController {
 
-    private final UserService userService;
-
-    private final PostService postService;
+    @Autowired
+    private UserService userService;
 
     @Autowired
-    public BlogController(UserService userService, PostService postService) {
-        this.userService = userService;
-        this.postService = postService;
-    }
+    private PostService postService;
+
 
     @RequestMapping(value = "/blog/{username}", method = RequestMethod.GET)
     public String blogForUsername(@PathVariable String username,
-                                  @RequestParam(defaultValue = "0") Optional<String> s
-            , @PageableDefault(value = 3) Pageable pageable,
+                                  @RequestParam(defaultValue = "0") Optional<String> s,
+                                  @PageableDefault(value = 5) Pageable pageable,
                                   Model model) {
-
         Optional<User> optionalUser = userService.findByUsername(username);
-
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             Page<Post> posts = postService.findByUserOrderedByDatePageable(user, pageable);
             Pager pager = new Pager(posts);
-
             model.addAttribute("pager", pager);
             model.addAttribute("user", user);
-
             return "posts";
-
         } else {
             return "error";
         }

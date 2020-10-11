@@ -1,0 +1,185 @@
+.button {
+  --color: #F6F8FF;
+  --color-hover: #F6F8FF;
+  --color-active: #fff;
+  --icon: #E1E6F9;
+  --icon-hover: #ECEFFC;
+  --icon-active: #fff;
+  --background: #404660;
+  --background-hover: #393E57;
+  --background-active: #275EFE;
+  --shadow: #{rgba(#001177, .1)};
+  display: block;
+  outline: none;
+  cursor: pointer;
+  position: relative;
+  border: 0;
+  background: none;
+  padding: 8px 20px 8px 24px;
+  border-radius: 9px;
+  line-height: 27px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color);
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  transition: color .2s linear;
+  &:hover {
+    --icon: var(--icon-hover);
+    --color: var(--color-hover);
+    --background: var(--background-hover);
+  }
+  &:active {
+    --scale: .95;
+  }
+  &:not(.liked) {
+    &:hover {
+      --hand-rotate: 8deg;
+      --hand-thumb-1: -12deg;
+      --hand-thumb-2: 36deg;
+    }
+  }
+  &.liked {
+    --span-x: 2px;
+    --span-d-o: 1;
+    --span-d-x: 0;
+    --icon: var(--icon-active);
+    --color: var(--color-active);
+    --background: var(--background-active);
+    --hand-name: hand;
+  }
+  &:after {
+    content: '';
+    min-width: 103px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+    transition: background .2s linear, transform .2s, box-shadow .2s linear;
+    transform: scale(var(--scale, 1)) translateZ(0);
+    background: var(--background);
+    box-shadow: 0 4px 8px var(--shadow), 0 8px 20px var(--shadow);
+  }
+  .emitter {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateZ(-4px);
+    div {
+      width: 6px;
+      height: 6px;
+      margin: -3px 0 0 -3px;
+      border-radius: 2px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform-style: preserve-3d;
+      background: var(--b, none);
+    }
+  }
+  .hand {
+    width: 11px;
+    height: 11px;
+    border-radius: 2px 0 0 0;
+    background: var(--icon);
+    margin: 10px 8px 0 0;
+    transform-origin: -5px -1px;
+    transition: transform .25s, background .2s linear;
+    transform: rotate(var(--hand-rotate, 0deg)) translateZ(0);
+    animation: var(--hand-name, none) .5s linear;
+    &:before,
+    &:after {
+      content: '';
+      background: var(--icon);
+      position: absolute;
+      transition: background .2s linear, box-shadow .2s linear;
+    }
+    &:before {
+      left: -5px;
+      bottom: 0;
+      height: 12px;
+      width: 4px;
+      border-radius: 1px 1px 0 1px;
+    }
+    &:after {
+      right: -3px;
+      top: 0;
+      width: 4px;
+      height: 4px;
+      border-radius: 0 2px 2px 0;
+      background: var(--icon);
+      box-shadow: -.5px 4px 0 var(--icon), -1px 8px 0 var(--icon), -1.5px 12px 0 var(--icon);
+      transform: scaleY(.6825);
+      transform-origin: 0 0;
+    }
+    .thumb {
+      background: var(--icon);
+      width: 10px;
+      height: 4px;
+      border-radius: 2px;
+      transform-origin: 2px 2px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      transition: transform .25s, background .2s linear;
+      transform: scale(.85) translateY(-.5px) rotate(var(--hand-thumb-1, -45deg)) translateZ(0);
+      &:before {
+        content: '';
+        height: 4px;
+        width: 7px;
+        border-radius: 2px;
+        transform-origin: 2px 2px;
+        background: var(--icon);
+        position: absolute;
+        left: 7px;
+        top: 0;
+        transition: transform .25s, background .2s linear;
+        transform: rotate(var(--hand-thumb-2, -45deg)) translateZ(0);
+      }
+    }
+  }
+  .hand,
+  span {
+    z-index: 1;
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    span {
+      opacity: var(--span-d-o, 0);
+      transition: transform .25s, opacity .2s linear;
+      transform: translateX(var(--span-d-x, 4px)) translateZ(0);
+    }
+  }
+  & > span {
+    transition: transform .25s;
+    transform: translateX(var(--span-x, 4px)) translateZ(0);
+  }
+}
+
+@keyframes hand {
+  30% {
+    transform: rotate(-14deg) translateZ(0);
+  }
+  65% {
+    transform: rotate(7deg) translateZ(0);
+  }
+  100% {
+    transform: rotate(0deg) translateZ(0);
+  }
+}
+
+html {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: inherit;
+  &:before,
+  &:after {
+    box-sizing: inherit;
+  }
+}

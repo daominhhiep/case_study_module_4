@@ -3,19 +3,21 @@
 <head>
     <title>Spring Boot Thymeleaf + Spring Security</title>
 
-    <div th:replace="/fragments/header :: header-css"/>
+    <div th:replace="/fragments/header :: header-css"></div>
 
 </head>
 <body>
 
-<div th:replace="/fragments/header :: header"/>
+<div th:replace="/fragments/header :: header"></div>
 
-<div class="container">
+<div class="container" style="margin-top: 70px">
 
     <div class="container">
 
+        <!--Show this info message only if posted successfully-->
         <div class="alert alert-info" th:if="${successMessage}" th:utext="${successMessage}"></div>
 
+        <!--New Post Form-->
         <div class="row" style="margin-top:20px">
             <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
                 <form autocomplete="off" action="#" th:action="@{/newPost}"
@@ -35,7 +37,10 @@
                         <label th:if="${#fields.hasErrors('body')}" th:errors="*{body}"
                                class="alert alert-danger"></label>
                         <textarea th:field="*{body}" placeholder="Body"
-                                  class="form-control input-lg"/>
+                                  class="form-control input-lg"></textarea>
+                    </div>
+                    <div>
+                        <input type="file" th:field="*{photo}" id="photos_file" name="photos_file" required="required">
                     </div>
 
                     <input type="hidden" th:field="*{user}"/>
@@ -53,14 +58,13 @@
         <!--Dont show delete button if the post is brand new-->
         <div class="row" th:if="${post.id}">
             <div class="col-md-6 col-md-offset-3">
-<!--                <form action="#" th:action="@{post/{id}(id=${post.id})}" th:method="delete"-->
-<!--                      class="form-horizontal">-->
-<!--                    <div class="form-group">-->
-<!--                        <input type="hidden" name="_method" value="delete"/>-->
-<!--                        <button type="submit" class="btn btn-danger btn-block" th:text="Delete">Delete</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-                <a role="button" th:href="@{post/{id}(id=${post.id})}" onclick="return confirm(`hihi`)">Delete</a>
+                <form action="#" th:action="@{'/post/{id}'(id=${post.id})}" th:method="post"
+                      class="form-horizontal">
+                    <div class="form-group">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="btn btn-danger btn-block" th:text="Delete">Delete</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -68,7 +72,7 @@
 </div>
 <!-- /.container -->
 
-<div th:replace="/fragments/footer :: footer"/>
+<div th:replace="/fragments/footer :: footer"></div>
 
 </body>
 </html>

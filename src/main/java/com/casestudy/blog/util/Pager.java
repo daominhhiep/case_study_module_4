@@ -12,7 +12,7 @@ public class Pager {
     }
 
     public int getPageIndex() {
-        return posts.getNumber() + 1;
+        return posts.getNumber();
     }
 
     public int getPageSize() {

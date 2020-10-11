@@ -3,6 +3,7 @@ package com.casestudy.blog.model;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -28,6 +29,11 @@ public class Post {
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
 
+    private String photoName;
+
+    @Transient
+    private MultipartFile photo;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
@@ -41,5 +47,10 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<Comment> comments;
 
+    private long likeCount;
+    private long commentCount;
+
+    @ManyToOne
+    private Status status;
 
 }
