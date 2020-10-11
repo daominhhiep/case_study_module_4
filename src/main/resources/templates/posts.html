@@ -1,26 +1,157 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <div th:replace="/fragments/header :: header-css"/>
-
+    <title>Home</title>
+    <div th:replace="/fragments/header :: header-css"></div>
 </head>
+
 <body>
+<div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom with-transitions"
+     data-sidebar-type="overlayed-sm-and-down">
 
-<div th:replace="/fragments/header :: header"/>
+    <!--    Navbar-->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <button id="toggle-sidebar-btn" class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
+        <a th:href="@{/home}" class="navbar-brand ml-10 ml-sm-20">
+            <img src="../static/images/logo.png" alt="logo" th:src="@{images/logo.png}">
+            <span class="d-none d-sm-flex">Luon Vuituoi</span>
+        </a>
+        <div class="navbar-content ml-auto">
+            <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
+                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                <span class="sr-only">Toggle dark mode</span>
+            </button>
+            <span sec:authorize="!isAuthenticated()">
+        <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
+        </span>
+        </div>
+    </nav>
 
-<div class="container" style="margin-top: 70px">
+    <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
 
-    <div class="jumbotron">
-        <h1 th:text="${user.name} + '\'s Blog'">Username Blog</h1>
+    <!--    sidebar-->
+    <div class="sidebar">
+        <div class="sidebar-menu">
+            <div class="sidebar-content">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="mt-10 font-size-12">
+                    Press <kbd>/</kbd> to focus
+                </div>
+            </div>
+            <div sec:authorize="!isAuthenticated()">
+                <h5 class="sidebar-title">Getting started</h5>
+                <div class="sidebar-divider"></div>
+                <a th:href="@{/registration}" class="sidebar-link sidebar-link-with-icon active">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    </span>
+                    Sign up
+                </a>
+                <a th:href="@{/login}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                    </span>
+                    Sign in
+                </a>
+            </div>
+            <div sec:authorize="hasRole('USER')">
+                <h5 class="sidebar-title">My blog</h5>
+                <div class="sidebar-divider"></div>
+                <a th:href="@{/newPost}" class="sidebar-link sidebar-link-with-icon"
+                >
+                    <span class="sidebar-icon">
+                        <i class="far fa-file" aria-hidden="true"></i>
+                    </span>
+                    New post
+                </a>
+                <a th:href="@{'/blog/' + ${#authentication.getName()}}" class="sidebar-link sidebar-link-with-icon">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </span>
+                    My blog
+                </a>
+            </div>
+            <a th:href="@{/logout}" class="sidebar-link sidebar-link-with-icon" sec:authorize="isAuthenticated()">
+                    <span class="sidebar-icon">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </span>
+                Logout
+            </a>
+        </div>
     </div>
 
+    <!-- Post -->
+    <div class="content-wrapper">
+        <h1 th:text="${user.name} + '\'s Blog'">Username Blog</h1>
+        <div class="container-fluid" th:each="post : ${pager.posts}" th:object="${user}">
+            <div class="row row-eq-spacing-lg">
+                <div class="col-lg-9">
+                    <div class="content">
+                        <a class="content-title" th:text="${post.title}" th:href="@{'/post/' + ${post.id}}">
+                            Post title
+                        </a>
+                    </div>
+                    <div class="card">
+                        <p th:text="${post.body}">
+                            Post body
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-3 d-none d-lg-block">
+                    <div class="content">
+                        <p class="content-title font-size-20">
+                        <p th:text="'Created: ' + ${#dates.format(post.createDate, 'dd-MMM-yyyy')} + ' by '">
+                            Created by
+                        </p>
+                        <p>Username: <a th:text="${post.user.username}"
+                                        th:href="@{'/blog/' + ${post.user.username}}">User</a>
+                        </p>
+                        </p>
+                        <div>Like :
+                            <span class="likes" title="Like" th:text="${post.likeCount}">Like count</span>
+                        </div>
+                        <br>
+                        <div sec:authorize="isAuthenticated()">
+                            <button class="btn btn-primary btn-sm" type="button"
+                                    th:onclick="'like(\'' + ${post.id} +'\',\''+${user.id} + '\')'">
+                                <i class="fas fa-heart" aria-hidden="true"></i> Like
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div th:replace="/fragments/posts :: posts"/>
-
-    <div th:replace="/fragments/pagination :: pagination(URLparameter='/blog/' + ${user.username})"/>
-
+    <!-- footer -->
+    <nav class="navbar navbar-fixed-bottom">
+        <!-- page-->
+        <div>
+            <a th:href="@{'/blog/' + ${user.username}(page=${pager.getPageIndex() - 1})}"
+               th:if="${pager.hasPrevious()}">Previous</a>
+            <span th:text="${pager.getPageIndex() + 1}"></span>/<span th:text="${pager.totalPages}"></span>
+            <a th:href="@{'/blog/' + ${user.username}(page=${pager.getPageIndex() + 1})}" th:if="${pager.hasNext()}">Next</a>
+            <a class="pageLink" th:href="@{'/blog/' + ${user.username}(page=${pager.getTotalPages() - 1})} "
+               th:if="${pager.hasNext()}">last</a>
+        </div>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <span sec:authorize="isAuthenticated()">
+                | Logged user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span> |
+                </span>
+            </li>
+        </ul>
+        <span class="navbar-text">
+                © Codegym 2020
+            </span>
+    </nav>
 </div>
-<!-- /.container -->
 
+<div th:replace="/fragments/footer :: footer"></div>
 </body>
 </html>
