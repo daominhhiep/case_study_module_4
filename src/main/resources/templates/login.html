@@ -87,46 +87,47 @@
 
     <!-- Login form -->
     <div class="content-wrapper">
-    <div class="card">
-        <div class="card-body mx-auto">
-            <!-- Inline form with form-groups -->
-            <form th:action="@{/login}" method="post" class="form-inline w-400 mw-full">
-                <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
-                <fieldset>
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            Invalid username and password.
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="required w-100" for="username">Username</label>
-                        <!-- w-100 = width: 10rem (100px) -->
-                        <input type="text" name="username" class="form-control" placeholder="Username" id="username"
-                               required="required" autofocus="true">
-                    </div>
-                    <br>
-                    <div class="form-group">
-                        <label class="required w-100" for="password">Password</label>
-                        <!-- w-100 = width: 10rem (100px) -->
-                        <input type="password" class="form-control" placeholder="Password" name="password" id="password"
-                               required="required">
-                    </div>
-                    <br>
-                    <div class="form-group mb-0"> <!-- mb-0 = margin-bottom: 0 -->
-                        <div class="custom-control">
-                            <div class="custom-checkbox">
-                                <input type="checkbox" id="remember-me" value="">
-                                <label for="remember-me">Remember me</label>
+        <div class="card">
+            <div class="card-body mx-auto">
+                <!-- Inline form with form-groups -->
+                <form th:action="@{/login}" method="post" class="form-inline w-400 mw-full">
+                    <!-- w-400 = width: 40rem (400px), mw-full = max-width: 100% -->
+                    <fieldset>
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username and password.
                             </div>
                         </div>
-                        <input type="submit" class="btn btn-primary ml-auto" value="Sign in">
-                        <!-- ml-auto = margin-left: auto -->
-                    </div>
-                </fieldset>
-            </form>
+
+                        <div class="form-group">
+                            <label class="required w-100" for="username">Username</label>
+                            <!-- w-100 = width: 10rem (100px) -->
+                            <input type="text" name="username" class="form-control" placeholder="Username" id="username"
+                                   required="required" autofocus="true">
+                        </div>
+                        <br>
+                        <div class="form-group">
+                            <label class="required w-100" for="password">Password</label>
+                            <!-- w-100 = width: 10rem (100px) -->
+                            <input type="password" class="form-control" placeholder="Password" name="password"
+                                   id="password"
+                                   required="required">
+                        </div>
+                        <br>
+                        <div class="form-group mb-0"> <!-- mb-0 = margin-bottom: 0 -->
+                            <div class="custom-control">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" id="remember-me" value="">
+                                    <label for="remember-me">Remember me</label>
+                                </div>
+                            </div>
+                            <input type="submit" class="btn btn-primary ml-auto" value="Sign in">
+                            <!-- ml-auto = margin-left: auto -->
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
         </div>
-    </div>
     </div>
 
 
@@ -134,10 +135,6 @@
     <nav class="navbar navbar-fixed-bottom">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <span sec:authorize="isAuthenticated()">
-                | Logged user: <span sec:authentication="name"></span> |
-                Roles: <span sec:authentication="principal.authorities"></span> |
-                </span>
             </li>
         </ul>
         <span class="navbar-text">
