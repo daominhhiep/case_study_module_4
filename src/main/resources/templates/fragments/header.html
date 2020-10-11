@@ -3,13 +3,9 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <div th:fragment="header-css">
-        <title>Spring Boot Blog</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet"/>
         <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.0/css/halfmoon-variables.min.css" rel="stylesheet"/>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -17,86 +13,5 @@
     </div>
 </head>
 <body>
-
-<div th:fragment="header">
-    <div id="page-wrapper" class="page-wrapper with-navbar with-sidebar with-navbar-fixed-bottom with-transitions"
-         data-sidebar-type="overlayed-sm-and-down">
-        <nav class="navbar">
-            <div class="navbar-content">
-                <button id="toggle-sidebar-btn" class="btn btn-action" type="button" onclick="halfmoon.toggleSidebar()">
-                    <i class="fa fa-bars" aria-hidden="true"></i>
-                </button>
-            </div>
-            <a th:href="@{/home}" class="navbar-brand ml-10 ml-sm-20">
-                <img src="../../static/images/logo.png" alt="fake-logo" th:src="@{images/logo.png}">
-                <span class="d-none d-sm-flex">Luon Vuituoi</span>
-            </a>
-            <div class="navbar-content ml-auto">
-                <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
-                    <i class="fa fa-moon-o" aria-hidden="true"></i>
-                    <span class="sr-only">Toggle dark mode</span>
-                </button>
-                <span sec:authorize="!isAuthenticated()">
-        <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
-        </span>
-            </div>
-        </nav>
-
-        <div class="sidebar-overlay" onclick="halfmoon.toggleSidebar()"></div>
-
-        <div class="sidebar">
-            <div class="sidebar-menu">
-                <div class="sidebar-content">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="mt-10 font-size-12">
-                        Press <kbd>/</kbd> to focus
-                    </div>
-                </div>
-                <div sec:authorize="!isAuthenticated()">
-                    <h5 class="sidebar-title">Getting started</h5>
-                    <div class="sidebar-divider"></div>
-                    <a th:href="@{/registration}" class="sidebar-link sidebar-link-with-icon active">
-                    <span class="sidebar-icon">
-                        <i class="fa fa-user-plus" aria-hidden="true"></i>
-                    </span>
-                        Sign up
-                    </a>
-                    <a th:href="@{/login}" class="sidebar-link sidebar-link-with-icon">
-                    <span class="sidebar-icon">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>
-                    </span>
-                        Sign in
-                    </a>
-                </div>
-                <div sec:authorize="hasRole('USER')">
-                    <h5 class="sidebar-title">My blog</h5>
-                    <div class="sidebar-divider"></div>
-                    <a th:href="@{/newPost}" class="sidebar-link sidebar-link-with-icon"
-                    >
-                    <span class="sidebar-icon">
-                        <i class="far fa-file" aria-hidden="true"></i>
-                    </span>
-                        New post
-                    </a>
-                    <a th:href="@{'/blog/' + ${#authentication.getName()}}" class="sidebar-link sidebar-link-with-icon">
-                    <span class="sidebar-icon">
-                        <i class="fa fa-table" aria-hidden="true"></i>
-                    </span>
-                        My blog
-                    </a>
-                </div>
-
-                <a th:href="@{/logout}" class="sidebar-link sidebar-link-with-icon" sec:authorize="isAuthenticated()">
-                    <span class="sidebar-icon">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    </span>
-                    Logout
-                </a>
-            </div>
-        </div>
-
-    </div>
-
-</div>
 </body>
 </html>
