@@ -78,7 +78,7 @@ public class PostController {
         MultipartFile photo = post.getPhoto();
         String photoName = "post_" + photo.getOriginalFilename();
         post.setPhotoName(photoName);
-        post.setStatus(iStatusService.findByName("pending").get());
+//        post.setStatus(iStatusService.findByName("pending").get());
 //        post.setAppUser(getPrincipal());
         try {
             FileCopyUtils.copy(photo.getBytes(), new File(upload_path + photoName));

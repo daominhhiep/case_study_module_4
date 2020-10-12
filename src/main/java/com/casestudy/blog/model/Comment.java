@@ -1,6 +1,7 @@
 package com.casestudy.blog.model;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 
@@ -13,6 +14,7 @@ import java.util.Date;
 @Entity
 @Data
 @Table(name = "comment")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class Comment {
 
     @Id
