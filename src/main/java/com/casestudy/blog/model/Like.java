@@ -18,4 +18,5 @@ public class Like {
 
     @ManyToOne
     private User user;
+
 }
