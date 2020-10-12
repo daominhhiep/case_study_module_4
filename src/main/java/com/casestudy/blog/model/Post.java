@@ -1,7 +1,6 @@
 package com.casestudy.blog.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,7 +13,6 @@ import java.util.Date;
 
 @Entity
 @Data
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 @Table(name = "post")
 public class Post {
 
@@ -46,13 +44,10 @@ public class Post {
     @NotNull
     private User user;
 
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-//    private Collection<Comment> comments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private Collection<Comment> comments;
 
     private long likeCount;
     private long commentCount;
-
-    @ManyToOne
-    private Status status;
 
 }

@@ -1,20 +1,17 @@
 package com.casestudy.blog.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
 
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.awt.*;
 import java.util.Date;
 
 @Entity
 @Data
 @Table(name = "comment")
-@EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
 public class Comment {
 
     @Id
