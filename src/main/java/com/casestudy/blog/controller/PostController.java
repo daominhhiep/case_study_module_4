@@ -4,29 +4,21 @@ package com.casestudy.blog.controller;
 import com.casestudy.blog.model.Like;
 import com.casestudy.blog.model.Post;
 import com.casestudy.blog.model.User;
-import com.casestudy.blog.service.IStatusService;
 import com.casestudy.blog.service.LikeService;
 import com.casestudy.blog.service.PostService;
 import com.casestudy.blog.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.security.Principal;
-import java.util.Date;
 import java.util.Optional;
 
 @Controller
@@ -41,12 +33,6 @@ public class PostController {
     @Autowired
     private LikeService likeService;
 
-    @Autowired
-    private IStatusService iStatusService;
-
-    @Value("${upload.path}")
-    private String upload_path;
-
 
     @RequestMapping(value = "/newPost", method = RequestMethod.GET)
     public String newPost(Principal principal,
@@ -58,37 +44,19 @@ public class PostController {
             model.addAttribute("post", post);
             return "postForm";
         } else {
-            return "error";
+            return "/error";
         }
     }
 
     @RequestMapping(value = "/newPost", method = RequestMethod.POST)
-//    public String createNewPost(@Valid Post post,
-//                BindingResult bindingResult) {
-//            if (bindingResult.hasErrors()) {
-//                return "postForm";
-//            } else {
-//                postService.save(post);
-//                return "redirect:/blog/" + post.getUser().getUsername();
-//            }
-//    }
-    public ModelAndView createNewPost(Post post){
-        long currentTime = System.currentTimeMillis();
-        post.setCreateDate(new Date(currentTime));
-        MultipartFile photo = post.getPhoto();
-        String photoName = "post_" + photo.getOriginalFilename();
-        post.setPhotoName(photoName);
-//        post.setStatus(iStatusService.findByName("pending").get());
-//        post.setAppUser(getPrincipal());
-        try {
-            FileCopyUtils.copy(photo.getBytes(), new File(upload_path + photoName));
-        } catch (IOException e) {
-            e.printStackTrace();
+    public String createNewPost(@Valid Post post,
+                                BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "postForm";
+        } else {
+            postService.save(post);
+            return "redirect:/home";
         }
-
-        postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("'blog/' + post.getUser().getUsername()");
-        return modelAndView;
     }
 
     @RequestMapping(value = "/editPost/{id}", method = RequestMethod.GET)

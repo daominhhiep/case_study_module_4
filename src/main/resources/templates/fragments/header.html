@@ -3,64 +3,15 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <div th:fragment="header-css">
-        <title>Spring Boot Blog</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
               crossorigin="anonymous">
-        <script src="../../static/js/script.js" type="text/javascript" th:src="@{/js/script.js}"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="https://use.fontawesome.com/releases/v5.13.0/js/all.js" crossorigin="anonymous"></script>
-        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-              rel="stylesheet"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.5.1/gsap.min.js"></script>
-        <link rel="stylesheet" href="../../static/css/like.scss" th:href="@{/static/css/like.scss}">
-<!--        <link href="../../resources/css/styles.css" rel="stylesheet"/>-->
-<!--        <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../../static/css/style.css"/>-->
+        <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.0/css/halfmoon-variables.min.css" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+              integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
     </div>
-
-
 </head>
 <body>
-
-<div th:fragment="header">
-    <header class="fixed-top">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 70px">
-            <a class="navbar-brand" th:href="@{/home}">
-                <img th:src="@{images/logo.png}" width="30" height="30" class="d-inline-block align-top"
-                     alt="" src="../../static/images/logo.png">
-                Luon Vuituoi 2.0
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" th:href="@{/home}">Blog App<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/registration}">Registration</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('USER')">
-                        <a class="nav-link" th:href="@{/newPost}">New Post</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="hasRole('USER')">
-                        <a class="nav-link" th:href="@{'/blog/' + ${#authentication.getName()}}">My Blog</a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/logout}">Sign Out</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
-</div>
-
 </body>
 </html>
