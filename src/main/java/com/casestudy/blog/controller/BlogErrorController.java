@@ -25,4 +25,5 @@ public class BlogErrorController implements ErrorController {
     public String getErrorPath() {
         return PATH;
     }
+
 }
