@@ -111,15 +111,26 @@
                                             th:href="@{'/blog/' + ${post.user.username}}">User</a>
                             </p>
                         </p>
-                        <div>Like :
-                        <span class="likes" title="Like" th:text="${post.likeCount}">Like count</span>
-                        </div>
-                        <br>
+<!--                        <div>Like :-->
+<!--                        <span class="likes" title="Like" th:text="${post.likeCount}">Like count</span>-->
+<!--                        </div>-->
+<!--                        <br>-->
+<!--                        <div sec:authorize="isAuthenticated()">-->
+<!--                            <button class="btn btn-primary btn-sm" type="button" id="like"-->
+<!--                                    onclick="like()">-->
+<!--                                <i class="fas fa-heart" aria-hidden="true"></i> Like-->
+<!--                            </button>-->
+<!--                        </div>-->
+                        <script type="text/javascript">
+                            var clicks = 0;
+                            function onClick() {
+                                clicks += 1;
+                                document.getElementById("clicks").innerHTML = clicks;
+                            };
+                        </script>
                         <div sec:authorize="isAuthenticated()">
-                            <button class="btn btn-primary btn-sm" type="button"
-                                    th:onclick="'like(\'' + ${post.id} +'\',\''+${user.id} + '\')'">
-                                <i class="fas fa-heart" aria-hidden="true"></i> Like
-                            </button>
+                        <button type="button" onClick="onClick()" class="btn btn-primary btn-sm">Like</button>
+                        <p>Like: <a id="clicks">0</a></p>
                         </div>
                     </div>
                 </div>

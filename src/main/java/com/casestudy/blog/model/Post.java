@@ -47,7 +47,7 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<Comment> comments;
 
-    private long likeCount;
+    private long likeCount = 0;
     private long commentCount;
 
 }
