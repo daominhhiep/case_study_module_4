@@ -28,7 +28,7 @@
             <span sec:authorize="!isAuthenticated()">
                 <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
             </span>
-            <span sec:authorize="isAuthenticated()">
+            <span sec:authorize="isAuthenticated()" style="margin-top: 5px">
                 <p th:text="'Hello ' + ${user.username}">User</p>
             </span>
         </div>

@@ -28,10 +28,7 @@
                 <span class="sr-only">Toggle dark mode</span>
             </button>
             <span sec:authorize="!isAuthenticated()">
-        <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
-        </span>
-            <span sec:authorize="isAuthenticated()">
-                <p th:text="'Hello ' + ${user.username}">User</p>
+                 <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
             </span>
         </div>
     </nav>
