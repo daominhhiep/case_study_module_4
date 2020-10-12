@@ -29,11 +29,6 @@ public class Post {
     @Column(name = "body", columnDefinition = "TEXT")
     private String body;
 
-    private String photoName;
-
-    @Transient
-    private MultipartFile photo;
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
