@@ -19,17 +19,20 @@
             </button>
         </div>
         <a th:href="@{/home}" class="navbar-brand ml-10 ml-sm-20">
-            <img src="../../static/images/logo.png" alt="fake-logo" th:src="@{images/logo.png}">
-            <span class="d-none d-sm-flex">Luon Vuituoi</span>
+            <img src="../static/images/logo.png" alt="logo" th:src="@{images/logo.png}">
+            <span class="d-none d-sm-flex">Fakeblog</span>
         </a>
         <div class="navbar-content ml-auto">
             <button class="btn btn-action mr-5" type="button" onclick="halfmoon.toggleDarkMode()">
-                <i class="fa fa-moon-o" aria-hidden="true"></i>
+                <i class="fas fa-moon"  aria-hidden="true"></i>
                 <span class="sr-only">Toggle dark mode</span>
             </button>
             <span sec:authorize="!isAuthenticated()">
         <a href="#" class="btn btn-primary" role="button" th:href="@{/login}">Get started</a>
         </span>
+            <span sec:authorize="isAuthenticated()">
+                <p th:text="'Hello ' + ${user.username}">User</p>
+            </span>
         </div>
     </nav>
 
@@ -41,7 +44,7 @@
             <div class="sidebar-content">
                 <input type="text" class="form-control" placeholder="Search">
                 <div class="mt-10 font-size-12">
-                    Press <kbd>/</kbd> to focus
+                    Press <kbd>Enter</kbd> to focus
                 </div>
             </div>
             <div sec:authorize="!isAuthenticated()">
@@ -55,7 +58,7 @@
                 </a>
                 <a th:href="@{/login}" class="sidebar-link sidebar-link-with-icon">
                     <span class="sidebar-icon">
-                        <i class="fa fa-sign-in" aria-hidden="true"></i>
+                        <i class="fas fa-sign-in-alt" aria-hidden="true"></i>
                     </span>
                     Sign in
                 </a>
@@ -79,7 +82,7 @@
             </div>
             <a th:href="@{/logout}" class="sidebar-link sidebar-link-with-icon" sec:authorize="isAuthenticated()">
                     <span class="sidebar-icon">
-                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                        <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                     </span>
                 Logout
             </a>
