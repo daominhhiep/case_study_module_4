@@ -85,9 +85,9 @@ public class PostController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         postService.save(post);
-        ModelAndView modelAndView = new ModelAndView("postForm");
-        postService.save(post);
+        ModelAndView modelAndView = new ModelAndView("'blog/' + post.getUser().getUsername()");
         return modelAndView;
     }
 
