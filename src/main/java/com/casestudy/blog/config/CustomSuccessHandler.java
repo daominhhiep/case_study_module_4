@@ -32,7 +32,6 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         redirectStrategy.sendRedirect(request, response, targetUrl);
     }
 
-
     protected String determineTargetUrl(Authentication authentication) {
         String url = "";
 
