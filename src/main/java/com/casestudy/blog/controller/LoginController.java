@@ -14,6 +14,7 @@ public class LoginController {
         if (principal != null) {
             return "home";
         }
+
         return "login";
     }
 

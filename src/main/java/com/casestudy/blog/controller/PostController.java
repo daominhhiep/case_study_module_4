@@ -111,6 +111,7 @@ public class PostController {
             return "error";
         }
     }
+
     private boolean isPrincipalOwnerOfPost(Principal principal, Post post) {
         return principal != null && principal.getName().equals(post.getUser().getUsername());
     }

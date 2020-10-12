@@ -23,6 +23,7 @@ public class GlobalExceptionHandler {
         String errorMessage = (throwable != null ? throwable.toString() : "Unknown error");
         modelAndView.addObject("errorMessage", errorMessage);
         return modelAndView;
+
     }
 
 }
