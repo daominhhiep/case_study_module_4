@@ -44,7 +44,7 @@ public class PostController {
             model.addAttribute("post", post);
             return "postForm";
         } else {
-            return "/error";
+            return "error";
         }
     }
 

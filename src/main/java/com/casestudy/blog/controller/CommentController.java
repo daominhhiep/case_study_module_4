@@ -34,7 +34,7 @@ public class CommentController {
     public String createNewComment(@Valid Comment comment,
                                    BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "/commentForm";
+            return "commentForm";
         } else {
             commentService.save(comment);
             return "redirect:/post/" + comment.getPost().getId();
